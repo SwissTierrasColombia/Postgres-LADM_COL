@@ -1,21 +1,39 @@
 #!/bin/bash
 echo 'Ejecutando: install_postgresql_postgis.sh'
+
+# rationale: set a default sudo
+if [ -z "$SUDO" ]; then
+  SUDO=''
+fi
+
+# rationale: validate postgres 9.6 instalation
 if [ -f /usr/pgsql-9.6/bin/pg_ctl ]; then
   echo 'Postgres ya está instalado. Nada que hacer.'
 else
+
+# rationale: install postgres
 echo "Instalando PostgreSQL"
-sudo yum localinstall -y https://yum.postgresql.org/9.6/redhat/rhel-7.4-x86_64/pgdg-centos96-9.6-3.noarch.rpm
-sudo yum install -y postgresql96-server
-sudo /usr/pgsql-9.6/bin/postgresql95-setup initdb
-sudo systemctl enable postgresql-9.6
-sudo sed -i.bak 's/peer/trust/; s/ident/md5/' /var/lib/pgsql/9.6/data/pg_hba.conf
-sudo tee -a /var/lib/pgsql/9.6/data/pg_hba.conf << 'EOF'
+$SUDO yum localinstall -y https://yum.postgresql.org/9.6/redhat/rhel-7.4-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+$SUDO yum install -y postgresql96-server
+$SUDO /usr/pgsql-9.6/bin/postgresql95-setup initdb
+$SUDO systemctl enable postgresql-9.6
+
+# rationale: allow password authentication
+$SUDO sed -i.bak 's/peer/trust/; s/ident/md5/' /var/lib/pgsql/9.6/data/pg_hba.conf
+
+# rationale: allow connection from all origin IP's with password
+$SUDO tee -a /var/lib/pgsql/9.6/data/pg_hba.conf << 'EOF'
 host    all             all             0.0.0.0/0               md5
 EOF
-sudo sed -i.bak "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /var/lib/pgsql/9.6/data/postgresql.conf
-sudo systemctl start postgresql-9.6.service
+
+# rationale: allow listen address for all hostname
+$SUDO sed -i.bak "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /var/lib/pgsql/9.6/data/postgresql.conf
+
+$SUDO systemctl start postgresql-9.6.service
 echo "Se ha terminado la instalación de Postgresql"
-#if you what remove # yum erase postgresql95*
+
+# rationale: mostrar commo se desinstala
+echo "Para desinstalar use # yum erase postgresql96*"
 
 # rationale: mostrar como se crea una base de datos
 cat << 'EOF'
@@ -34,15 +52,16 @@ host    all             all             ::1/128                 md5
 $ sudo systemctl restart postgresql-9.6.service
 EOF
 
+# rationale: install postgis
 echo "Instalando Postgis"
-sudo yum install -y epel-release
-sudo yum install -y postgis2_95
+$SUDO yum install -y epel-release
+$SUDO yum install -y postgis2_96
 echo "Postgis Instalado"
 
-# rationale: mostrar como se instala postgis en la base de datos
+# rationale: mostrar como se instala postgis sobre una base de datos
 cat << 'EOF'
 # ¿Cómo instalar postgis en tu base de datos?
-$ sudo su postgres
+$ $SUDO su postgres
 $ /usr/pgsql-9.5/bin/psql -p 5432
 > CREATE DATABASE gistest;
 > \connect gistest;

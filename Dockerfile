@@ -4,6 +4,7 @@ MAINTAINER Jorge Useche <juusechec@gmail.com>
 USER root
 
 #WORKDIR /sql
+# no sudo needed
 ADD ./scripts/ /scripts
 RUN chmod 0755 /scripts/*.sh
 RUN /scripts/01-install_basics.sh

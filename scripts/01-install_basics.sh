@@ -1,5 +1,5 @@
 #!/bin/bash
-echo 'Ejecutando: install_utilities.sh'
+echo 'Ejecutando: install_basics.sh'
 
 # rationale: list of applications
 list=(vim git nmap tree wget sudo)
@@ -33,7 +33,7 @@ done
 
 # rationale: set a default sudo
 if [ -z "$SUDO" ]; then
-  SUDO=sudo
+  SUDO=''
 fi
 
 # rationale: if someone is not installed, install all
