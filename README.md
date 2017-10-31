@@ -1,20 +1,18 @@
-# firefox-headless-selenium-python
+# postgres-LADM_COL
 
 Create container:
 ```sh
-docker run -p 4444:4444 -p 5900 -d . --name firefox-headless-selenium-python
-docker exec firefox-headless-selenium-python bash
+docker run -p 4444:4444 -p 5900 -d . --name postgres-LADM_COL
+docker exec postgres-LADM_COL bash
 ```
 
 With docker compose:
 ```sh
-docker-compose exec selenium python3 /app/scripts/example_test.py
-vinagre localhost:5900 # pass 'secret'
+docker-compose exec postgres bash
 ```
 
-In docker hub https://hub.docker.com/r/juusechec/firefox-headless-selenium-python
+<!-- In docker hub https://hub.docker.com/r/juusechec/firefox-headless-selenium-python -->
 
 ## Referencias
-- https://intoli.com/blog/running-selenium-with-headless-firefox/
-- https://github.com/SeleniumHQ/docker-selenium/tree/master/StandaloneFirefox
-- https://github.com/vvo/docker-selenium-firefox-chrome-beta
+- https://github.com/AgenciaImplementacion/Visor_Geoportal
+- 
