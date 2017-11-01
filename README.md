@@ -13,6 +13,6 @@ docker-compose exec postgres bash
 
 <!-- In docker hub https://hub.docker.com/r/juusechec/firefox-headless-selenium-python -->
 
-## Referencias
+## References
 - https://github.com/AgenciaImplementacion/Visor_Geoportal
-- 
+-

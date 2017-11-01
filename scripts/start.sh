@@ -1,3 +1,4 @@
 #!/usr/bin/bash -eux
 
-echo 'Hello'
+echo 'Wait for postgres initiation.'
+journalctl -f

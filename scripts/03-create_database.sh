@@ -7,25 +7,20 @@ if [ -z "$SUDO" ]; then
 fi
 
 sql1=users.sql
-sql2=script_tables.sql
-db=database
+db=ladm_col
 
-if echo 'SELECT * FROM public.sometable?;' | sudo psql -U postgres -d $db &>/dev/null
+if echo 'SELECT * FROM public.sometable?;' | $SUDO psql -U postgres -d $db &>/dev/null
 then
   echo 'La tabla sometable? ya está creada. Nada que hacer.'
-elif echo "\connect $db;" | sudo psql -U postgres&>/dev/null
+elif echo "\connect $db;" | $SUDO psql -U postgres&>/dev/null
 then
   echo 'La base de datos ya está creada. Nada que hacer.'
 else
-  cp $sql1 /tmp
-  cp $sql2 /tmp
-  scriptsql1=/tmp/$sql1
-  scriptsql2=/tmp/$sql2
+  scriptsql1=/sql/$sql1
   sudo chown postgres:postgres $scriptsql1
-  sudo chown postgres:postgres $scriptsql2
   sudo su postgres -c "
   cd /tmp
-  psql -f $scriptsql1
-  psql -f $scriptsql2 -d $db
+  #psql -f $scriptsql2
+  psql -f $scriptsql1 -d $db
   "
 fi
