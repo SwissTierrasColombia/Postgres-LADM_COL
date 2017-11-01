@@ -2,7 +2,7 @@
 echo 'Ejecutando: install_basics.sh'
 
 # rationale: list of applications
-list=(vim git nmap tree wget sudo)
+list=(vim git nmap telnet tree wget sudo)
 
 # rationale: list of packages (no bin app entry)
 # example, mlocate install locate, not mlocate bin

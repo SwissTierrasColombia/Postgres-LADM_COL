@@ -70,6 +70,8 @@ $ /usr/pgsql-9.6/bin/psql -p 5432
 > CREATE EXTENSION postgis_topology;
 > CREATE EXTENSION ogr_fdw;
 > SELECT postgis_full_version();
+# Otra forma
+$ 
 EOF
 
 fi
