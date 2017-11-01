@@ -15,7 +15,7 @@ else
 echo "Instalando PostgreSQL"
 $SUDO yum localinstall -y https://yum.postgresql.org/9.6/redhat/rhel-7.4-x86_64/pgdg-centos96-9.6-3.noarch.rpm
 $SUDO yum install -y postgresql96-server
-$SUDO /usr/pgsql-9.6/bin/postgresql95-setup initdb
+$SUDO /usr/pgsql-9.6/bin/postgresql96-setup initdb
 $SUDO systemctl enable postgresql-9.6
 
 # rationale: allow password authentication
