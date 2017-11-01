@@ -55,17 +55,18 @@ EOF
 # rationale: install postgis
 echo "Instalando Postgis"
 $SUDO yum install -y epel-release
-$SUDO yum install -y postgis2_96
+$SUDO yum install -y postgis24_96 postgis24_96-utils
 echo "Postgis Instalado"
 
 # rationale: mostrar como se instala postgis sobre una base de datos
+# link: https://postgis.net/docs/postgis_installation.html
 cat << 'EOF'
 # ¿Cómo instalar postgis en tu base de datos?
-$ $SUDO su postgres
-$ /usr/pgsql-9.5/bin/psql -p 5432
+$ sudo su postgres
+$ /usr/pgsql-9.6/bin/psql -p 5432
 > CREATE DATABASE gistest;
 > \connect gistest;
-> CREATE EXTENSION postgis;
+> CREATE EXTENSION postgis SCHEMA public; # or other?
 > CREATE EXTENSION postgis_topology;
 > CREATE EXTENSION ogr_fdw;
 > SELECT postgis_full_version();
