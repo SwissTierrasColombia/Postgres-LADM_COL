@@ -7,7 +7,7 @@ if [ -z "$SUDO" ]; then
 fi
 
 sql1=users.sql
-db=ladm_col
+db=ladm_col_db
 
 if echo 'SELECT * FROM public.sometable?;' | $SUDO psql -U postgres -d $db &>/dev/null
 then
