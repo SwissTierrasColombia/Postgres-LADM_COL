@@ -21,4 +21,4 @@ RUN yum clean all
 RUN rm -rf /var/cache/yum
 
 EXPOSE 5432
-CMD ["sh", "/scripts/start.sh"]
+CMD ["sh", "/scripts/docker-entrypoint.sh"]
