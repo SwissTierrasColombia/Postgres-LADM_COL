@@ -8,7 +8,7 @@ USER root
 #WORKDIR /sql
 # no sudo needed
 ADD ./scripts/ /scripts
-ADD ./sql/ /sql
+#ADD ./sql/ /sql
 RUN chmod 0755 /scripts/*.sh
 RUN /scripts/01-install_basics.sh
 RUN /scripts/02-install_postgres_postgis.sh

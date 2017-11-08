@@ -8,5 +8,6 @@ services:
     volumes:
       - /run
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - ./scripts:/scripts/
-      - .:/app
+      - ./scripts:/scripts:ro
+      - ./sql:/sql:ro
+      - .:/app:ro
