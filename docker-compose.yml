@@ -2,6 +2,7 @@ version: '3'
 services:
   postgres:
     build: .
+    privileged: true
     ports:
       - 5432:5432
     volumes:

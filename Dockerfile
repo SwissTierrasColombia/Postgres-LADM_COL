@@ -10,7 +10,9 @@ rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
 rm -f /lib/systemd/system/basic.target.wants/*;\
 rm -f /lib/systemd/system/anaconda.target.wants/*;
 VOLUME [ "/sys/fs/cgroup" ]
-CMD ["/usr/sbin/init"]
+#CMD ["/usr/sbin/init"]
+
+RUN exec /usr/sbin/init &
 
 # please see https://hub.docker.com/_/centos/
 
@@ -26,11 +28,11 @@ RUN /scripts/01-install_basics.sh
 RUN /scripts/02-install_postgres_postgis.sh
 RUN /scripts/03-create_database.sh
 RUN /scripts/04-populate_database.sh
-RUN /scripts/05-configure_secure.sh
+#RUN /scripts/05-configure_secure.sh
 
 # Remove unnecesary
 RUN yum clean all
 RUN rm -rf /var/cache/yum
 
 EXPOSE 5432
-#CMD ["sh", "/scripts/start.sh"]
+CMD ["sh", "/scripts/start.sh"]

@@ -7,5 +7,6 @@ if [ -z "$SUDO" ]; then
 fi
 
 # rationale: add port of postgres to firewall rules public
+# solo para centos completo?
 $SUDO firewall-cmd --zone=public --add-port=5432/tcp --permanent
 $SUDO firewall-cmd --reload

@@ -32,7 +32,7 @@ $SUDO sed -i.bak "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /va
 $SUDO systemctl start postgresql-9.6.service
 echo "Se ha terminado la instalación de Postgresql"
 
-# rationale: mostrar commo se desinstala
+# rationale: mostrar como se desinstala
 echo "Para desinstalar use # yum erase postgresql96*"
 
 # rationale: mostrar como se crea una base de datos
@@ -64,12 +64,15 @@ cat << 'EOF'
 # ¿Cómo instalar postgis en tu base de datos?
 $ sudo su postgres
 $ /usr/pgsql-9.6/bin/psql -p 5432
-> CREATE DATABASE gistest;
-> \connect gistest;
+> CREATE DATABASE mi_base_de_datos;
+> \connect mi_base_de_datos;
 > CREATE EXTENSION postgis SCHEMA public; # or other?
 > CREATE EXTENSION postgis_topology;
 > CREATE EXTENSION ogr_fdw;
 > SELECT postgis_full_version();
+# ¿Otra manera? https://postgis.net/docs/postgis_installation.html
+psql -d mi_base_de_datos -c "CREATE EXTENSION postgis;"
+psql -d mi_base_de_datos -c "CREATE EXTENSION postgis_topology;"
 EOF
 
 fi
