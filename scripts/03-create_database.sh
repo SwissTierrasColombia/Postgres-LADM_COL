@@ -6,6 +6,8 @@ if [ -z "$SUDO" ]; then
   SUDO=''
 fi
 
+$SUDO /usr/pgsql-9.6/bin/postgresql96-setup initdb
+
 db=ladm_col
 scriptsql1=/sql/create_LADM_COL.sql
 
