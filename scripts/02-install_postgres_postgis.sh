@@ -15,21 +15,6 @@ else
 echo "Instalando PostgreSQL"
 $SUDO yum localinstall -y https://yum.postgresql.org/9.6/redhat/rhel-7.4-x86_64/pgdg-centos96-9.6-3.noarch.rpm
 $SUDO yum install -y postgresql96-server
-$SUDO systemctl enable postgresql-9.6
-# $SUDO /usr/pgsql-9.6/bin/postgresql96-setup initdb
-
-# rationale: allow password authentication
-$SUDO sed -i.bak 's/peer/trust/; s/ident/md5/' /var/lib/pgsql/9.6/data/pg_hba.conf
-
-# rationale: allow connection from all origin IP's with password
-$SUDO tee -a /var/lib/pgsql/9.6/data/pg_hba.conf << 'EOF'
-host    all             all             0.0.0.0/0               md5
-EOF
-
-# rationale: allow listen address for all hostname
-$SUDO sed -i.bak "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /var/lib/pgsql/9.6/data/postgresql.conf
-
-#$SUDO systemctl start postgresql-9.6.service
 echo "Se ha terminado la instalación de Postgresql"
 
 # rationale: mostrar como se desinstala

@@ -11,7 +11,7 @@ With docker compose:
 docker-compose exec postgres bash
 ```
 
-<!-- In docker hub https://hub.docker.com/r/juusechec/firefox-headless-selenium-python -->
+In docker hub https://hub.docker.com/r/agenciaimplementacion/postgres-ladm_col
 
 ## References
 - https://github.com/AgenciaImplementacion/Visor_Geoportal
