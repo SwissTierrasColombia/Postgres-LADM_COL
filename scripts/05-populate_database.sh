@@ -6,8 +6,9 @@ if [ -z "$SUDO" ]; then
   SUDO=''
 fi
 
-db=ladm_col
-scriptsql1=/sql/backup_LADM_COL.sql
+db='ladm_col'
+schema='test_ladm_col'
+scriptsql1='/sql/backup_LADM_COL.sql'
 
 function populate_with_ili2db {
   # rationale: create directory for LADM_COL model repo and executables
@@ -15,12 +16,12 @@ function populate_with_ili2db {
   pushd /opt/interlis
 
   # rationale: defining data config
-  LADM_COL_VERSION="V2_2_1"
+  LADM_COL_VERSION='V2_2_1'
   # OJO, LADM_COL_DIR debería ser recursivo
-  LADM_COL_DIR="/opt/interlis/LADM_COL_REPO/ISO;/opt/interlis/LADM_COL_REPO/Catastro_Multiproposito;/opt/interlis/LADM_COL_REPO/Catastro_Multiproposito/legacy;/opt/interlis/LADM_COL_REPO/Condicion_Amenaza_Riesgo"
+  LADM_COL_DIR='/opt/interlis/LADM_COL_REPO/ISO;/opt/interlis/LADM_COL_REPO/Catastro_Multiproposito;/opt/interlis/LADM_COL_REPO/Catastro_Multiproposito/legacy;/opt/interlis/LADM_COL_REPO/Condicion_Amenaza_Riesgo'
   LADM_COL_MODELS="Catastro_Registro_Nucleo_$LADM_COL_VERSION;Avaluos_$LADM_COL_VERSION;Ficha_Predial_$LADM_COL_VERSION"
   # OJO, esto es temporal UNICAMENTE porque la última versión no se ha lanzado como release, así que cojo el master
-  LADM_COL_ZIP_URL="https://api.github.com/repos/AgenciaImplementacion/LADM_COL/zipball/master"
+  LADM_COL_ZIP_URL='https://api.github.com/repos/AgenciaImplementacion/LADM_COL/zipball/master'
   #LADM_COL_ZIP_URL=$(curl https://api.github.com/repos/AgenciaImplementacion/LADM_COL/releases/latest | grep -i zipball_url | awk -F '": "' '{print $2}' RS='",')
 
   # rationale: download ili files of LADM_COL
@@ -39,7 +40,7 @@ function populate_with_ili2db {
   --dbusr usuario_ladm_col \
   --dbpwd clave_ladm_col \
   --dbdatabase ladm_col \
-  --dbschema test_ladm_col \
+  --dbschema "$schema" \
   --setupPgExt \
   --coalesceCatalogueRef \
   --createEnumTabs \
@@ -61,13 +62,13 @@ function populate_with_ili2db {
 }
 
 # rationale: check if empty, with select in table "public.la_baunit"
-SQLResult=$(echo 'SELECT * FROM public.la_baunit LIMIT 0' | $SUDO psql -U postgres -d $db 2>&1) # error and output to variable
+SQLResult=$(echo "SELECT * FROM $schema.la_baunit LIMIT 0" | $SUDO psql -U postgres -d $db 2>&1) # error and output to variable
 #echo "SQL result: $SQLResult"
 
 # rationale if table not exists, execute populations, if not have error, the query was success
 if ! echo "$SQLResult" | grep 'ERROR' &>/dev/null
 then
-  echo 'Esquema public NO está vacio. Nada que hacer.'
+  echo "Esquema $schema NO está vacio. Nada que hacer."
 else
   $SUDO chown postgres:postgres $scriptsql1
   $SUDO su postgres -c "psql -f $scriptsql1 -d $db"
