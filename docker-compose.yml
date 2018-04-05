@@ -6,6 +6,7 @@ services:
     ports:
       - 5432:5432
     volumes:
+      #- ./persistence:/var/lib/pgsql/9.6/data
       - /run
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
       - ./scripts:/scripts:ro

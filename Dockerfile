@@ -12,9 +12,7 @@ ADD ./scripts/ /scripts
 RUN chmod 0755 /scripts/*.sh
 RUN /scripts/01-install_basics.sh
 RUN /scripts/02-install_postgres_postgis.sh
-#RUN /scripts/03-create_database.sh
-#RUN /scripts/04-populate_database.sh
-#RUN /scripts/05-configure_secure.sh
+# others scripts are executed in entrypoint
 
 # Remove unnecesary
 RUN yum clean all

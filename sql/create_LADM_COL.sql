@@ -4,5 +4,5 @@ ALTER USER usuario_ladm_col WITH SUPERUSER; --needed by plugin projectgenerator
 --GRANT USAGE ON SCHEMA public TO usuario_ladm_col;
 \connect ladm_col;
 CREATE EXTENSION postgis SCHEMA public;
-CREATE EXTENSION postgis_topology SCHEMA public;
+--CREATE EXTENSION postgis_topology SCHEMA public;
 SELECT postgis_full_version();

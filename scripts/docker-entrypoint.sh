@@ -15,11 +15,11 @@ done
 
 echo "/usr/sbin/init ready!"
 #chmod 0755 /scripts/*.sh
-rm -rf /var/lib/pgsql/9.6/data/*
+#rm -rf /var/lib/pgsql/9.6/data/*
 /scripts/03-configure_postgres.sh
 /scripts/04-create_database.sh
 /scripts/05-populate_database.sh
-#/scripts/05-configure_secure.sh
+#/scripts/06-configure_secure.sh
 journalctl -f
 }
 

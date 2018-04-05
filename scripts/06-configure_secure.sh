@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 echo 'Ejecutando: configure_secure.sh'
 
 # rationale: set a default sudo
