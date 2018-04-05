@@ -1,7 +1,8 @@
 version: '3'
 services:
   postgres:
-    build: .
+    image: agenciaimplementacion/postgres-ladm_col
+    #build: .
     privileged: true
     ports:
       - 5432:5432
