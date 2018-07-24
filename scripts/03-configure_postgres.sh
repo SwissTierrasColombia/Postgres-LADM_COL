@@ -7,21 +7,21 @@ if [ -z "$SUDO" ]; then
 fi
 
 # rationale: init database
-$SUDO /usr/pgsql-9.6/bin/postgresql96-setup initdb
+$SUDO /usr/pgsql-10/bin/postgresql-10-setup initdb
 
 # rationale: enable service
-$SUDO systemctl enable postgresql-9.6
+$SUDO systemctl enable postgresql-10
 
 # rationale: allow password authentication
-$SUDO sed -i.bak 's/peer/trust/; s/ident/md5/' /var/lib/pgsql/9.6/data/pg_hba.conf
+$SUDO sed -i.bak 's/peer/trust/; s/ident/md5/' /var/lib/pgsql/10/data/pg_hba.conf
 
 # rationale: allow connection from all origin IP's with password
-$SUDO tee -a /var/lib/pgsql/9.6/data/pg_hba.conf << 'EOF'
+$SUDO tee -a /var/lib/pgsql/10/data/pg_hba.conf << 'EOF'
 host    all             all             0.0.0.0/0               md5
 EOF
 
 # rationale: allow listen address for all hostname
-$SUDO sed -i.bak "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /var/lib/pgsql/9.6/data/postgresql.conf
+$SUDO sed -i.bak "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" /var/lib/pgsql/10/data/postgresql.conf
 
 # rationale: start service
-$SUDO systemctl start postgresql-9.6.service
+$SUDO systemctl start postgresql-10.service
