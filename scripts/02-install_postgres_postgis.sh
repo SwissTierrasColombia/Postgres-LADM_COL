@@ -13,12 +13,12 @@ else
 
 # rationale: install postgres
 echo "Instalando PostgreSQL"
-$SUDO yum localinstall -y https://yum.postgresql.org/9.6/redhat/rhel-7.4-x86_64/pgdg-centos96-9.6-3.noarch.rpm
-$SUDO yum install -y postgresql96-server
+$SUDO yum localinstall -y https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
+$SUDO yum install -y postgresql10-server
 echo "Se ha terminado la instalación de Postgresql"
 
 # rationale: mostrar como se desinstala
-echo "Para desinstalar use # yum erase postgresql96*"
+echo "Para desinstalar use # yum erase postgresql10*"
 
 # rationale: mostrar como se crea una base de datos
 cat << 'EOF'
@@ -34,13 +34,13 @@ host    all             all             127.0.0.1/32            md5
 host    all             all             localhost               md5
 host    all             all             ::1/128                 md5
 host    all             all             0.0.0.0/0               md5 # important!
-$ sudo systemctl restart postgresql-9.6.service
+$ sudo systemctl restart postgresql-10.service
 EOF
 
 # rationale: install postgis
 echo "Instalando Postgis"
 $SUDO yum install -y epel-release
-$SUDO yum install -y postgis24_96 postgis24_96-utils
+$SUDO yum install -y postgis24_10 postgis24_10-utils
 echo "Postgis Instalado"
 
 # rationale: mostrar como se instala postgis sobre una base de datos
@@ -48,7 +48,7 @@ echo "Postgis Instalado"
 cat << 'EOF'
 # ¿Cómo instalar postgis en tu base de datos?
 $ sudo su postgres
-$ /usr/pgsql-9.6/bin/psql -p 5432
+$ /usr/pgsql-10/bin/psql -p 5432
 > CREATE DATABASE mi_base_de_datos;
 > \connect mi_base_de_datos;
 > CREATE EXTENSION postgis SCHEMA public; # or other?
